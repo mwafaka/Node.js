@@ -34,7 +34,7 @@ const server = http.createServer((req, res) => {
       contenType = "text/javascript";
       break;
     case ".css":
-      contenType = ".css";
+      contenType = "text/css";
       break;
     case ".json":
       contenType = "application/json";
@@ -63,7 +63,7 @@ const server = http.createServer((req, res) => {
       }
     } else {
       //success
-      res.writeHead(200, { "Content-Type": "text/html" });
+      res.writeHead(200, { "Content-Type": contenType });
       res.end(content, "utf8");
     }
   });
