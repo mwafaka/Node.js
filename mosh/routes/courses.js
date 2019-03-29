@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
+const Joi = require("joi");
 
 const Course = mongoose.model(
   "Course",
@@ -27,8 +28,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const { error } = validateCourse(req.body);
-  if (error) return;
-  res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send(error.details[0].message);
 
   let course = new Course({
     name: req.body.name

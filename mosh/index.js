@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const startupDebugger = require("debug")("app:startup");
 const dbDebugger = require("debug")("app:db");
 const config = require("config");
-const Joi = require("joi");
 const logger = require("./logger");
 const express = require("express");
 const helmet = require("helmet");
