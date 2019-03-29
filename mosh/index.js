@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const startupDebugger = require("debug")("app:startup");
 const dbDebugger = require("debug")("app:db");
 const config = require("config");
@@ -8,10 +9,16 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const courses = require("./routes/courses");
 const homepage = require("./routes/homepage");
+const router = express.Router();
 const app = express();
 
 app.set("view engine", "pug");
-app.set("views", "./views"); //default
+mongoose
+  .connect("mongodb://localhost/courses")
+  .then(() => console.log("Connect to MongoDb..."))
+  .catch(err => console.log("Could not connect to mongoDb..."));
+/////////connect mongodb////////////
+
 ////////
 // console.log(`Node_ENV: ${process.env.NODE_ENV}`);
 // console.log(`app: ${app.get("env")}`);
@@ -36,6 +43,7 @@ app.use(function(req, res, next) {
   console.log("Lodding...");
   next(logger);
 });
+const port = process.env.PORT || 3000;
 
 app.listen(3000, () => {
   console.log(`listening on port ${port}`);
