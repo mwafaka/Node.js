@@ -8,7 +8,7 @@ app.use(expressLayouts);
 app.set("view engine", "ejs");
 
 //Bodyparser
-app.use(express.urlencoded({ urlencoded: false }));
+app.use(express.urlencoded({ extended: false }));
 
 //Connect to mongo
 mongoose
