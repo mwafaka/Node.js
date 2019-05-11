@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const db = require("./config/keys").MongoURI;
 const flash = require("connect-flash");
 const session = require("express-session");
+const passport = require("passport");
 //Ejs
 app.use(expressLayouts);
 app.set("view engine", "ejs");
@@ -20,12 +21,16 @@ app.use(
     saveUninitialized: true
   })
 );
+//passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 //Connect flash
 app.use(flash());
 //Global vars
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
+  res.locals.error = req.flash("error");
   next();
 });
 
