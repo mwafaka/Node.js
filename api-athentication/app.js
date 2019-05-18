@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 //Connect to mongoose
-mongoose.connect("mongodb://localhost/APIAuthentication", {
+mongoose.connect("mongodb://localhost:27017/APIAuthentication", {
   useNewUrlParser: true
 });
 //middlewares
