@@ -25,6 +25,15 @@ router
   );
 router
   .route("/oauth/google")
-  .post(passport.authenticate("googleToken", { session: false }));
+  .post(
+    passport.authenticate("googleToken", { session: false }),
+    UserController.googleOAuth
+  );
 
+router
+  .route("/oauth/facebook")
+  .post(
+    passport.authenticate("facebookToken", { session: false }),
+    UserController.facebookOAuth
+  );
 module.exports = router;

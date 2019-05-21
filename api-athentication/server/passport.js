@@ -4,6 +4,7 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const { ExtractJwt } = require("passport-jwt");
 const { JWT_SECRET } = require("./configuration/index");
 const GooglePlusTokenStrategy = require("passport-google-plus-token");
+const FacebookTokenStrategy = require("passport-facebook-token");
 const User = require("./models/user");
 
 //json web token strategy
@@ -46,6 +47,22 @@ passport.use(
   )
 );
 
+//facebook strategy
+passport.use(
+  "facebookToken",
+  new FacebookTokenStrategy(
+    {
+      clientID: "",
+      clientSecret: ""
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+      } catch (error) {
+        done(error, false, error.message);
+      }
+    }
+  )
+);
 //localstrategy
 passport.use(
   new Localstrategy(
