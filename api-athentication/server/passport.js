@@ -5,6 +5,7 @@ const { ExtractJwt } = require("passport-jwt");
 const { JWT_SECRET } = require("./configuration/index");
 const GooglePlusTokenStrategy = require("passport-google-plus-token");
 const FacebookTokenStrategy = require("passport-facebook-token");
+const config = require("./configuration");
 const User = require("./models/user");
 
 //json web token strategy
@@ -12,9 +13,9 @@ passport.use(
   new JwtStrategy(
     {
       jwtFromRequest: ExtractJwt.fromHeader("authorization"),
-      secretOrKey: JWT_SECRET
+      secretOrKey: config.JWT_SECRET
     },
-    async (payload, done) => {
+    async (req, payload, done) => {
       try {
         //Find the user specifeid in token
         const user = await User.findById(payload.sub);
@@ -35,9 +36,8 @@ passport.use(
   "googleToken",
   new GooglePlusTokenStrategy(
     {
-      clientID:
-        "1080786384826-q7u1amm87g13ri3vqk8cqrih10pgai75.apps.googleusercontent.com",
-      clientSecret: "8YexYrRSkDnymoIKpiwejn8w"
+      clientID: config.oauth.google.clientID,
+      clientSecret: config.oauth.google.clientID
     },
     async (accessToken, refreshToken, profile, done) => {
       console.log("AccessToken", accessToken),
@@ -52,8 +52,8 @@ passport.use(
   "facebookToken",
   new FacebookTokenStrategy(
     {
-      clientID: "",
-      clientSecret: ""
+      clientID: config.oauth.facebook.clientID,
+      clientSecret: config.oauth.facebook.clientID
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
