@@ -4,8 +4,8 @@ if (process.env.NODE_ENV === "test") {
     oauth: {
       google: {
         clientID:
-          "1080786384826-q7u1amm87g13ri3vqk8cqrih10pgai75.apps.googleusercontent.com",
-        clientSecret: "8YexYrRSkDnymoIKpiwejn8w"
+          "1080786384826-0t8qviq7l7c4mtc37kpi5a1r9hbsr52q.apps.googleusercontent.com",
+        clientSecret: "ymDRbzkoRTfTA2q5ruboEYt8"
       },
       facebook: {
         clientID: "number",

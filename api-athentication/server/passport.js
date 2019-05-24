@@ -5,7 +5,7 @@ const { ExtractJwt } = require("passport-jwt");
 const { JWT_SECRET } = require("./configuration/index");
 const GooglePlusTokenStrategy = require("passport-google-plus-token");
 const FacebookTokenStrategy = require("passport-facebook-token");
-const config = require("./configuration");
+const config = require("./configuration/index");
 const User = require("./models/user");
 
 //json web token strategy
@@ -13,7 +13,7 @@ passport.use(
   new JwtStrategy(
     {
       jwtFromRequest: ExtractJwt.fromHeader("authorization"),
-      secretOrKey: config.JWT_SECRET
+      secretOrKey: JWT_SECRET
     },
     async (req, payload, done) => {
       try {
@@ -37,7 +37,7 @@ passport.use(
   new GooglePlusTokenStrategy(
     {
       clientID: config.oauth.google.clientID,
-      clientSecret: config.oauth.google.clientID
+      clientSecret: config.oauth.google.clientSecret
     },
     async (accessToken, refreshToken, profile, done) => {
       console.log("AccessToken", accessToken),
