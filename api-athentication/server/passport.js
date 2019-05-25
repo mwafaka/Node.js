@@ -2,7 +2,6 @@ const passport = require("passport");
 const Localstrategy = require("passport-local").Strategy;
 const JwtStrategy = require("passport-jwt").Strategy;
 const { ExtractJwt } = require("passport-jwt");
-const { JWT_SECRET } = require("./configuration/index");
 const GooglePlusTokenStrategy = require("passport-google-plus-token");
 const FacebookTokenStrategy = require("passport-facebook-token");
 const config = require("./configuration/index");
@@ -13,7 +12,8 @@ passport.use(
   new JwtStrategy(
     {
       jwtFromRequest: ExtractJwt.fromHeader("authorization"),
-      secretOrKey: JWT_SECRET
+      passReqToCallback: true,
+      secretOrKey: config.JWT_SECRET
     },
     async (req, payload, done) => {
       try {
@@ -72,7 +72,7 @@ passport.use(
     async (email, password, done) => {
       try {
         //Find the user given the email
-        const user = await User.findById({ email });
+        const user = await User.findOne({ "local.email": email });
         //if not , handle it
         if (!user) {
           return done(null, false);

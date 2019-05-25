@@ -16,9 +16,9 @@ class SignUp extends Component {
   }
 
   async onSubmit(formData) {
-    console.log("onSubmit() got called");
     console.log("formData", formData);
     await this.props.signUp(formData);
+    console.log(this.props.errorMessage);
     if (!this.props.errorMessage) {
       this.props.history.push("/dashboard");
     }

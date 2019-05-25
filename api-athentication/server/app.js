@@ -11,7 +11,12 @@ mongoose.connect("mongodb://localhost:3000/APIAuthentication", {
 });
 
 //use cors
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true
+  })
+);
 //middlewares
 app.use(morgan("dev"));
 app.use(bodyParser.json());
